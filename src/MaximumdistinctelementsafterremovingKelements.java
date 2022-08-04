@@ -1,22 +1,31 @@
-import java.util.HashMap;
-import java.util.Map;
-import java.util.PriorityQueue;
+import java.util.*;
 
 public class MaximumdistinctelementsafterremovingKelements {
 
 
     static int maxDistinctNum(int a[], int n, int k)
     {
-        int count=0;
+        Set<Integer> set=new HashSet<>();
+        for(int i:a)
+            set.add(i);
+        if(n==set.size()||set.size()>=n-k)
+            return n-k;
+        else if(n-k==1)
+            return 1;
+        else if(set.size()<n-k)
+            return set.size();
+        else
+            return set.size()-(n-k)+1;
+       /* int count=0;
         Map<Integer,Integer> map=new HashMap<>();
         PriorityQueue<Integer> queue=new PriorityQueue<>();
         for(int i:a)
             map.put(i, map.getOrDefault(i, 0) + 1);
-        /*Below if else is same as above one line code*/
-        /* if (map.containsKey(i))
+        *//*Below if else is same as above one line code*//*
+        *//* if (map.containsKey(i))
              map.put(i,map.get(i)+1);
           else
-              map.put(i,1);*/
+              map.put(i,1);*//*
         for(Map.Entry<Integer,
                 Integer> p : map.entrySet())
         {
@@ -43,7 +52,7 @@ public class MaximumdistinctelementsafterremovingKelements {
             count=count-k;
         if(!queue.isEmpty())
             count=count+queue.size();
-        return count;
+        return count;*/
     }
 
     public static void main(String[] args) {

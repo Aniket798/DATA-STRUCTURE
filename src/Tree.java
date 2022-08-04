@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class Tree {
+    private static final int COUNT =10 ;
     Node root;
     static class Node{
         int data;
@@ -42,8 +43,6 @@ public class Tree {
             }
             System.out.print(n.data+" ");
         }
-
-
     }
     public static Node insert(Node root,int data) {
         Node node=new Node(data);
@@ -113,6 +112,39 @@ public class Tree {
 
         return maxSum;
     }
+    static void print2DUtil(Node root, int space)
+    {
+        // Base case
+        if (root == null)
+            return;
+
+        // Increase distance between levels
+        space += COUNT;
+
+        // Process right child first
+        print2DUtil(root.right, space);
+
+        // Print current node after space
+        // count
+        System.out.print("\n");
+        for (int i = COUNT; i < space; i++)
+            System.out.print(" ");
+        System.out.print(root.data + "\n");
+
+        // Process left child
+        print2DUtil(root.left, space);
+    }
+    public static Node deleteNode(Node root,int k)
+    {
+        //add code here.
+        if(root==null)
+            return root;
+        if(root.data<k)
+            root.right=deleteNode(root.right,k);
+        else if(root.data>=k)
+            root=deleteNode(root.left,k);
+        return root;
+    }
     public static void main(String[] args) {
         Tree tree=new Tree();
         /************POST,PRE,IN ORDER INPUTS*************/
@@ -155,10 +187,25 @@ public class Tree {
         System.out.println(checkBST(tree.root));*/
 
 
-        tree.root=new Node(1);
+       /* tree.root=new Node(1);
         tree.root.left=new Node(2);
         tree.root.right=new Node(3);
-        System.out.println(maxPathSum(tree.root));
+        System.out.println(maxPathSum(tree.root));*/
+
+
+        tree.root=new Node(8);
+        tree.root.left=new Node(3);
+        tree.root.right=new Node(10);
+        tree.root.left.left=new Node(1);
+        tree.root.left.right=new Node(6);
+        tree.root.left.right.left=new Node(4);
+        tree.root.left.right.right=new Node(7);
+        tree.root.right.right=new Node(14);
+        tree.root.right.right.left=new Node(13);
+        Node node=deleteNode(tree.root,4);
+        print2DUtil(node,0);
+        //System.out.println(node.data);
+
 
 
 
